@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StreamingUnicahModelStoreContainer" CdmEntityContainer="StreamingUnicahEntities">
+    <EntitySetMapping Name="Clasificaciones">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.Clasificaciones">
+        <MappingFragment StoreEntitySet="Clasificaciones">
+          <ScalarProperty Name="IdClasificaciones" ColumnName="IdClasificaciones" />
+          <ScalarProperty Name="DescripcionClasficacion" ColumnName="DescripcionClasficacion" />
+          <ScalarProperty Name="EstadoClasificacion" ColumnName="EstadoClasificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estudios">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.Estudios">
+        <MappingFragment StoreEntitySet="Estudios">
+          <ScalarProperty Name="IdEstudios" ColumnName="IdEstudios" />
+          <ScalarProperty Name="NombreEstudio" ColumnName="NombreEstudio" />
+          <ScalarProperty Name="FechaFundacion" ColumnName="FechaFundacion" />
+          <ScalarProperty Name="FKPais" ColumnName="FKPais" />
+          <ScalarProperty Name="EstadoEstudio" ColumnName="EstadoEstudio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Paises">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.Paises">
+        <MappingFragment StoreEntitySet="Paises">
+          <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+          <ScalarProperty Name="NombrePais" ColumnName="NombrePais" />
+          <ScalarProperty Name="EstadoPais" ColumnName="EstadoPais" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TiposPeliculas">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.TiposPeliculas">
+        <MappingFragment StoreEntitySet="TiposPeliculas">
+          <ScalarProperty Name="IdTipoPelicula" ColumnName="IdTipoPelicula" />
+          <ScalarProperty Name="DescripcionTipoPelicula" ColumnName="DescripcionTipoPelicula" />
+          <ScalarProperty Name="EstadoTipoPelicula" ColumnName="EstadoTipoPelicula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,11 @@
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\bin\Debug\pryStreaingUnicah.exe.config
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\bin\Debug\pryStreaingUnicah.exe
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\bin\Debug\pryStreaingUnicah.pdb
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\bin\Debug\EntityFramework.dll
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\bin\Debug\EntityFramework.xml
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.csprojResolveAssemblyReference.cache
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.Form1.resources
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.Properties.Resources.resources
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.csproj.GenerateResource.Cache
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.exe
+c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.pdb

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StreamingUnicahModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clasificaciones">
+    <Key>
+      <PropertyRef Name="IdClasificaciones" />
+    </Key>
+    <Property Name="IdClasificaciones" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionClasficacion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EstadoClasificacion" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Estudios">
+    <Key>
+      <PropertyRef Name="IdEstudios" />
+    </Key>
+    <Property Name="IdEstudios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreEstudio" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FechaFundacion" Type="datetime" Nullable="false" />
+    <Property Name="FKPais" Type="tinyint" Nullable="false" />
+    <Property Name="EstadoEstudio" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Paises">
+    <Key>
+      <PropertyRef Name="IdPais" />
+    </Key>
+    <Property Name="IdPais" Type="tinyint" Nullable="false" />
+    <Property Name="NombrePais" Type="nvarchar" MaxLength="70" Nullable="false" />
+    <Property Name="EstadoPais" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TiposPeliculas">
+    <Key>
+      <PropertyRef Name="IdTipoPelicula" />
+    </Key>
+    <Property Name="IdTipoPelicula" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionTipoPelicula" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="EstadoTipoPelicula" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Estudios_Paises">
+    <End Role="Paises" Type="Self.Paises" Multiplicity="1" />
+    <End Role="Estudios" Type="Self.Estudios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paises">
+        <PropertyRef Name="IdPais" />
+      </Principal>
+      <Dependent Role="Estudios">
+        <PropertyRef Name="FKPais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StreamingUnicahModelStoreContainer">
+    <EntitySet Name="Clasificaciones" EntityType="Self.Clasificaciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Estudios" EntityType="Self.Estudios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paises" EntityType="Self.Paises" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TiposPeliculas" EntityType="Self.TiposPeliculas" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Estudios_Paises" Association="Self.FK_Estudios_Paises">
+      <End Role="Paises" EntitySet="Paises" />
+      <End Role="Estudios" EntitySet="Estudios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

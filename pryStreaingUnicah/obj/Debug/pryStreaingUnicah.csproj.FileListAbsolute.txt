@@ -9,3 +9,5 @@ c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\p
 c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.csproj.GenerateResource.Cache
 c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.exe
 c:\users\administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.pdb
+C:\Users\Administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.MantenimientoEstudios.resources
+C:\Users\Administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.CalidadCamisas.resources

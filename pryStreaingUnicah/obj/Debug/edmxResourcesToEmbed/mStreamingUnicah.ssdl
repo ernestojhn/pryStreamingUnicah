@@ -18,13 +18,46 @@
     <Property Name="FKPais" Type="tinyint" Nullable="false" />
     <Property Name="EstadoEstudio" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="ModuloPrincipal">
+    <Key>
+      <PropertyRef Name="IdModuloPrincipal" />
+    </Key>
+    <Property Name="IdModuloPrincipal" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionModuloPrin" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EstadoModuloPrin" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Modulos">
+    <Key>
+      <PropertyRef Name="IdModulos" />
+    </Key>
+    <Property Name="IdModulos" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionModulo" Type="nvarchar" MaxLength="70" Nullable="false" />
+    <Property Name="EstadoModulo" Type="bit" Nullable="false" />
+    <Property Name="FKModuloPrincipal" Type="smallint" Nullable="false" />
+  </EntityType>
   <EntityType Name="Paises">
     <Key>
       <PropertyRef Name="IdPais" />
     </Key>
-    <Property Name="IdPais" Type="tinyint" Nullable="false" />
+    <Property Name="IdPais" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NombrePais" Type="nvarchar" MaxLength="70" Nullable="false" />
     <Property Name="EstadoPais" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Perfiles">
+    <Key>
+      <PropertyRef Name="IdPerfil" />
+    </Key>
+    <Property Name="IdPerfil" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionPerfil" Type="nvarchar" MaxLength="70" Nullable="false" />
+    <Property Name="EstadoPerfil" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PerfilModulo">
+    <Key>
+      <PropertyRef Name="IdPerfilModulo" />
+    </Key>
+    <Property Name="FKPerfilId" Type="smallint" Nullable="false" />
+    <Property Name="FKModuloId" Type="smallint" Nullable="false" />
+    <Property Name="IdPerfilModulo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="TiposPeliculas">
     <Key>
@@ -33,6 +66,19 @@
     <Property Name="IdTipoPelicula" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DescripcionTipoPelicula" Type="nvarchar" MaxLength="15" Nullable="false" />
     <Property Name="EstadoTipoPelicula" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NombreCompleto" Type="nvarchar" MaxLength="70" Nullable="false" />
+    <Property Name="FechaNacimeinto" Type="date" Nullable="false" />
+    <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="140" Nullable="false" />
+    <Property Name="FKPerfil" Type="smallint" Nullable="false" />
+    <Property Name="Estdo" Type="bit" Nullable="false" />
+    <Property Name="Contrasenia" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="FK_Estudios_Paises">
     <End Role="Paises" Type="Self.Paises" Multiplicity="1" />
@@ -46,14 +92,83 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Modulos_ModuloPrincipal">
+    <End Role="ModuloPrincipal" Type="Self.ModuloPrincipal" Multiplicity="1" />
+    <End Role="Modulos" Type="Self.Modulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ModuloPrincipal">
+        <PropertyRef Name="IdModuloPrincipal" />
+      </Principal>
+      <Dependent Role="Modulos">
+        <PropertyRef Name="FKModuloPrincipal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilModulo_Modulos">
+    <End Role="Modulos" Type="Self.Modulos" Multiplicity="1" />
+    <End Role="PerfilModulo" Type="Self.PerfilModulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modulos">
+        <PropertyRef Name="IdModulos" />
+      </Principal>
+      <Dependent Role="PerfilModulo">
+        <PropertyRef Name="FKModuloId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilModulo_Perfiles">
+    <End Role="Perfiles" Type="Self.Perfiles" Multiplicity="1" />
+    <End Role="PerfilModulo" Type="Self.PerfilModulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfiles">
+        <PropertyRef Name="IdPerfil" />
+      </Principal>
+      <Dependent Role="PerfilModulo">
+        <PropertyRef Name="FKPerfilId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Perfiles">
+    <End Role="Perfiles" Type="Self.Perfiles" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfiles">
+        <PropertyRef Name="IdPerfil" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="FKPerfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="StreamingUnicahModelStoreContainer">
     <EntitySet Name="Clasificaciones" EntityType="Self.Clasificaciones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estudios" EntityType="Self.Estudios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModuloPrincipal" EntityType="Self.ModuloPrincipal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modulos" EntityType="Self.Modulos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Paises" EntityType="Self.Paises" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Perfiles" EntityType="Self.Perfiles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PerfilModulo" EntityType="Self.PerfilModulo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TiposPeliculas" EntityType="Self.TiposPeliculas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Estudios_Paises" Association="Self.FK_Estudios_Paises">
       <End Role="Paises" EntitySet="Paises" />
       <End Role="Estudios" EntitySet="Estudios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Modulos_ModuloPrincipal" Association="Self.FK_Modulos_ModuloPrincipal">
+      <End Role="ModuloPrincipal" EntitySet="ModuloPrincipal" />
+      <End Role="Modulos" EntitySet="Modulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilModulo_Modulos" Association="Self.FK_PerfilModulo_Modulos">
+      <End Role="Modulos" EntitySet="Modulos" />
+      <End Role="PerfilModulo" EntitySet="PerfilModulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilModulo_Perfiles" Association="Self.FK_PerfilModulo_Perfiles">
+      <End Role="Perfiles" EntitySet="Perfiles" />
+      <End Role="PerfilModulo" EntitySet="PerfilModulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Perfiles" Association="Self.FK_Usuarios_Perfiles">
+      <End Role="Perfiles" EntitySet="Perfiles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

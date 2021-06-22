@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="StreamingUnicahModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StreamingUnicahModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Clasificaciones">
           <Key>
             <PropertyRef Name="IdClasificaciones" />
@@ -23,13 +23,46 @@
           <Property Name="FKPais" Type="tinyint" Nullable="false" />
           <Property Name="EstadoEstudio" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ModuloPrincipal">
+          <Key>
+            <PropertyRef Name="IdModuloPrincipal" />
+          </Key>
+          <Property Name="IdModuloPrincipal" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionModuloPrin" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EstadoModuloPrin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modulos">
+          <Key>
+            <PropertyRef Name="IdModulos" />
+          </Key>
+          <Property Name="IdModulos" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionModulo" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="EstadoModulo" Type="bit" Nullable="false" />
+          <Property Name="FKModuloPrincipal" Type="smallint" Nullable="false" />
+        </EntityType>
         <EntityType Name="Paises">
           <Key>
             <PropertyRef Name="IdPais" />
           </Key>
-          <Property Name="IdPais" Type="tinyint" Nullable="false" />
+          <Property Name="IdPais" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombrePais" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EstadoPais" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Perfiles">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionPerfil" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="EstadoPerfil" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerfilModulo">
+          <Key>
+            <PropertyRef Name="IdPerfilModulo" />
+          </Key>
+          <Property Name="FKPerfilId" Type="smallint" Nullable="false" />
+          <Property Name="FKModuloId" Type="smallint" Nullable="false" />
+          <Property Name="IdPerfilModulo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="TiposPeliculas">
           <Key>
@@ -38,6 +71,19 @@
           <Property Name="IdTipoPelicula" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DescripcionTipoPelicula" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="EstadoTipoPelicula" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreCompleto" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="FechaNacimeinto" Type="date" Nullable="false" />
+          <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="140" Nullable="false" />
+          <Property Name="FKPerfil" Type="smallint" Nullable="false" />
+          <Property Name="Estdo" Type="bit" Nullable="false" />
+          <Property Name="Contrasenia" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_Estudios_Paises">
           <End Role="Paises" Type="Self.Paises" Multiplicity="1" />
@@ -51,18 +97,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Modulos_ModuloPrincipal">
+          <End Role="ModuloPrincipal" Type="Self.ModuloPrincipal" Multiplicity="1" />
+          <End Role="Modulos" Type="Self.Modulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuloPrincipal">
+              <PropertyRef Name="IdModuloPrincipal" />
+            </Principal>
+            <Dependent Role="Modulos">
+              <PropertyRef Name="FKModuloPrincipal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerfilModulo_Modulos">
+          <End Role="Modulos" Type="Self.Modulos" Multiplicity="1" />
+          <End Role="PerfilModulo" Type="Self.PerfilModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulos">
+              <PropertyRef Name="IdModulos" />
+            </Principal>
+            <Dependent Role="PerfilModulo">
+              <PropertyRef Name="FKModuloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerfilModulo_Perfiles">
+          <End Role="Perfiles" Type="Self.Perfiles" Multiplicity="1" />
+          <End Role="PerfilModulo" Type="Self.PerfilModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfiles">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="PerfilModulo">
+              <PropertyRef Name="FKPerfilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Perfiles">
+          <End Role="Perfiles" Type="Self.Perfiles" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfiles">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="FKPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="StreamingUnicahModelStoreContainer">
           <EntitySet Name="Clasificaciones" EntityType="Self.Clasificaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estudios" EntityType="Self.Estudios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuloPrincipal" EntityType="Self.ModuloPrincipal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modulos" EntityType="Self.Modulos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paises" EntityType="Self.Paises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perfiles" EntityType="Self.Perfiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PerfilModulo" EntityType="Self.PerfilModulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TiposPeliculas" EntityType="Self.TiposPeliculas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Estudios_Paises" Association="Self.FK_Estudios_Paises">
             <End Role="Paises" EntitySet="Paises" />
             <End Role="Estudios" EntitySet="Estudios" />
           </AssociationSet>
+          <AssociationSet Name="FK_Modulos_ModuloPrincipal" Association="Self.FK_Modulos_ModuloPrincipal">
+            <End Role="ModuloPrincipal" EntitySet="ModuloPrincipal" />
+            <End Role="Modulos" EntitySet="Modulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerfilModulo_Modulos" Association="Self.FK_PerfilModulo_Modulos">
+            <End Role="Modulos" EntitySet="Modulos" />
+            <End Role="PerfilModulo" EntitySet="PerfilModulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerfilModulo_Perfiles" Association="Self.FK_PerfilModulo_Perfiles">
+            <End Role="Perfiles" EntitySet="Perfiles" />
+            <End Role="PerfilModulo" EntitySet="PerfilModulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Perfiles" Association="Self.FK_Usuarios_Perfiles">
+            <End Role="Perfiles" EntitySet="Perfiles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="StreamingUnicahModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -123,7 +237,130 @@
             <End Role="Paises" EntitySet="Paises" />
             <End Role="Estudios" EntitySet="Estudios" />
           </AssociationSet>
+          <EntitySet Name="Perfiles" EntityType="StreamingUnicahModel.Perfiles" />
+          <EntitySet Name="Usuarios" EntityType="StreamingUnicahModel.Usuarios" />
+          <AssociationSet Name="FK_Usuarios_Perfiles" Association="StreamingUnicahModel.FK_Usuarios_Perfiles">
+            <End Role="Perfiles" EntitySet="Perfiles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <EntitySet Name="ModuloPrincipal" EntityType="StreamingUnicahModel.ModuloPrincipal" />
+          <EntitySet Name="PerfilModulo" EntityType="StreamingUnicahModel.PerfilModulo" />
+          <AssociationSet Name="FK_PerfilModulo_Perfiles" Association="StreamingUnicahModel.FK_PerfilModulo_Perfiles">
+            <End Role="Perfiles" EntitySet="Perfiles" />
+            <End Role="PerfilModulo" EntitySet="PerfilModulo" />
+          </AssociationSet>
+          <EntitySet Name="Modulos" EntityType="StreamingUnicahModel.Modulos" />
+          <AssociationSet Name="FK_Modulos_ModuloPrincipal" Association="StreamingUnicahModel.FK_Modulos_ModuloPrincipal">
+            <End Role="ModuloPrincipal" EntitySet="ModuloPrincipal" />
+            <End Role="Modulos" EntitySet="Modulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PerfilModulo_Modulos" Association="StreamingUnicahModel.FK_PerfilModulo_Modulos">
+            <End Role="Modulos" EntitySet="Modulos" />
+            <End Role="PerfilModulo" EntitySet="PerfilModulo" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Perfiles">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionPerfil" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="EstadoPerfil" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="StreamingUnicahModel.FK_Usuarios_Perfiles" FromRole="Perfiles" ToRole="Usuarios" />
+          <NavigationProperty Name="PerfilModulo" Relationship="StreamingUnicahModel.FK_PerfilModulo_Perfiles" FromRole="Perfiles" ToRole="PerfilModulo" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NombreCompleto" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="FechaNacimeinto" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CorreoElectronico" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="true" />
+          <Property Name="FKPerfil" Type="Int16" Nullable="false" />
+          <Property Name="Estdo" Type="Boolean" Nullable="false" />
+          <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Perfiles" Relationship="StreamingUnicahModel.FK_Usuarios_Perfiles" FromRole="Usuarios" ToRole="Perfiles" />
+        </EntityType>
+        <Association Name="FK_Usuarios_Perfiles">
+          <End Type="StreamingUnicahModel.Perfiles" Role="Perfiles" Multiplicity="1" />
+          <End Type="StreamingUnicahModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfiles">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="FKPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ModuloPrincipal">
+          <Key>
+            <PropertyRef Name="IdModuloPrincipal" />
+          </Key>
+          <Property Name="IdModuloPrincipal" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionModuloPrin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EstadoModuloPrin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Modulos" Relationship="StreamingUnicahModel.FK_Modulos_ModuloPrincipal" FromRole="ModuloPrincipal" ToRole="Modulos" />
+        </EntityType>
+        <EntityType Name="PerfilModulo">
+          <Key>
+            <PropertyRef Name="IdPerfilModulo" />
+          </Key>
+          <Property Name="FKPerfilId" Type="Int16" Nullable="false" />
+          <Property Name="FKModuloId" Type="Int16" Nullable="false" />
+          <Property Name="IdPerfilModulo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Perfiles" Relationship="StreamingUnicahModel.FK_PerfilModulo_Perfiles" FromRole="PerfilModulo" ToRole="Perfiles" />
+          <NavigationProperty Name="Modulos" Relationship="StreamingUnicahModel.FK_PerfilModulo_Modulos" FromRole="PerfilModulo" ToRole="Modulos" />
+        </EntityType>
+        <Association Name="FK_PerfilModulo_Perfiles">
+          <End Type="StreamingUnicahModel.Perfiles" Role="Perfiles" Multiplicity="1" />
+          <End Type="StreamingUnicahModel.PerfilModulo" Role="PerfilModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfiles">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="PerfilModulo">
+              <PropertyRef Name="FKPerfilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Modulos">
+          <Key>
+            <PropertyRef Name="IdModulos" />
+          </Key>
+          <Property Name="IdModulos" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionModulo" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="EstadoModulo" Type="Boolean" Nullable="false" />
+          <Property Name="FKModuloPrincipal" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="ModuloPrincipal" Relationship="StreamingUnicahModel.FK_Modulos_ModuloPrincipal" FromRole="Modulos" ToRole="ModuloPrincipal" />
+          <NavigationProperty Name="PerfilModulo" Relationship="StreamingUnicahModel.FK_PerfilModulo_Modulos" FromRole="Modulos" ToRole="PerfilModulo" />
+        </EntityType>
+        <Association Name="FK_Modulos_ModuloPrincipal">
+          <End Type="StreamingUnicahModel.ModuloPrincipal" Role="ModuloPrincipal" Multiplicity="1" />
+          <End Type="StreamingUnicahModel.Modulos" Role="Modulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModuloPrincipal">
+              <PropertyRef Name="IdModuloPrincipal" />
+            </Principal>
+            <Dependent Role="Modulos">
+              <PropertyRef Name="FKModuloPrincipal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PerfilModulo_Modulos">
+          <End Type="StreamingUnicahModel.Modulos" Role="Modulos" Multiplicity="1" />
+          <End Type="StreamingUnicahModel.PerfilModulo" Role="PerfilModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulos">
+              <PropertyRef Name="IdModulos" />
+            </Principal>
+            <Dependent Role="PerfilModulo">
+              <PropertyRef Name="FKModuloId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -165,6 +402,57 @@
                 <ScalarProperty Name="IdTipoPelicula" ColumnName="IdTipoPelicula" />
                 <ScalarProperty Name="DescripcionTipoPelicula" ColumnName="DescripcionTipoPelicula" />
                 <ScalarProperty Name="EstadoTipoPelicula" ColumnName="EstadoTipoPelicula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfiles">
+            <EntityTypeMapping TypeName="StreamingUnicahModel.Perfiles">
+              <MappingFragment StoreEntitySet="Perfiles">
+                <ScalarProperty Name="EstadoPerfil" ColumnName="EstadoPerfil" />
+                <ScalarProperty Name="DescripcionPerfil" ColumnName="DescripcionPerfil" />
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="StreamingUnicahModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+                <ScalarProperty Name="Estdo" ColumnName="Estdo" />
+                <ScalarProperty Name="FKPerfil" ColumnName="FKPerfil" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="FechaNacimeinto" ColumnName="FechaNacimeinto" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuloPrincipal">
+            <EntityTypeMapping TypeName="StreamingUnicahModel.ModuloPrincipal">
+              <MappingFragment StoreEntitySet="ModuloPrincipal">
+                <ScalarProperty Name="EstadoModuloPrin" ColumnName="EstadoModuloPrin" />
+                <ScalarProperty Name="DescripcionModuloPrin" ColumnName="DescripcionModuloPrin" />
+                <ScalarProperty Name="IdModuloPrincipal" ColumnName="IdModuloPrincipal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerfilModulo">
+            <EntityTypeMapping TypeName="StreamingUnicahModel.PerfilModulo">
+              <MappingFragment StoreEntitySet="PerfilModulo">
+                <ScalarProperty Name="IdPerfilModulo" ColumnName="IdPerfilModulo" />
+                <ScalarProperty Name="FKModuloId" ColumnName="FKModuloId" />
+                <ScalarProperty Name="FKPerfilId" ColumnName="FKPerfilId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modulos">
+            <EntityTypeMapping TypeName="StreamingUnicahModel.Modulos">
+              <MappingFragment StoreEntitySet="Modulos">
+                <ScalarProperty Name="FKModuloPrincipal" ColumnName="FKModuloPrincipal" />
+                <ScalarProperty Name="EstadoModulo" ColumnName="EstadoModulo" />
+                <ScalarProperty Name="DescripcionModulo" ColumnName="DescripcionModulo" />
+                <ScalarProperty Name="IdModulos" ColumnName="IdModulos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

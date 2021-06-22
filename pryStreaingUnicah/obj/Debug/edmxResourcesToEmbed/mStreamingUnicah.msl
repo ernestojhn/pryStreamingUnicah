@@ -39,5 +39,56 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Perfiles">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.Perfiles">
+        <MappingFragment StoreEntitySet="Perfiles">
+          <ScalarProperty Name="EstadoPerfil" ColumnName="EstadoPerfil" />
+          <ScalarProperty Name="DescripcionPerfil" ColumnName="DescripcionPerfil" />
+          <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+          <ScalarProperty Name="Estdo" ColumnName="Estdo" />
+          <ScalarProperty Name="FKPerfil" ColumnName="FKPerfil" />
+          <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+          <ScalarProperty Name="FechaNacimeinto" ColumnName="FechaNacimeinto" />
+          <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuloPrincipal">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.ModuloPrincipal">
+        <MappingFragment StoreEntitySet="ModuloPrincipal">
+          <ScalarProperty Name="EstadoModuloPrin" ColumnName="EstadoModuloPrin" />
+          <ScalarProperty Name="DescripcionModuloPrin" ColumnName="DescripcionModuloPrin" />
+          <ScalarProperty Name="IdModuloPrincipal" ColumnName="IdModuloPrincipal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerfilModulo">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.PerfilModulo">
+        <MappingFragment StoreEntitySet="PerfilModulo">
+          <ScalarProperty Name="IdPerfilModulo" ColumnName="IdPerfilModulo" />
+          <ScalarProperty Name="FKModuloId" ColumnName="FKModuloId" />
+          <ScalarProperty Name="FKPerfilId" ColumnName="FKPerfilId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modulos">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.Modulos">
+        <MappingFragment StoreEntitySet="Modulos">
+          <ScalarProperty Name="FKModuloPrincipal" ColumnName="FKModuloPrincipal" />
+          <ScalarProperty Name="EstadoModulo" ColumnName="EstadoModulo" />
+          <ScalarProperty Name="DescripcionModulo" ColumnName="DescripcionModulo" />
+          <ScalarProperty Name="IdModulos" ColumnName="IdModulos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

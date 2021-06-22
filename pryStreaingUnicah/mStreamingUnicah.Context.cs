@@ -29,5 +29,10 @@ namespace pryStreaingUnicah
         public DbSet<Estudios> Estudios { get; set; }
         public DbSet<Paises> Paises { get; set; }
         public DbSet<TiposPeliculas> TiposPeliculas { get; set; }
+        public DbSet<Perfiles> Perfiles { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<ModuloPrincipal> ModuloPrincipal { get; set; }
+        public DbSet<PerfilModulo> PerfilModulo { get; set; }
+        public DbSet<Modulos> Modulos { get; set; }
     }
 }

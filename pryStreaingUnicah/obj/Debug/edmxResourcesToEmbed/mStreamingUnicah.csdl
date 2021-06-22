@@ -57,5 +57,128 @@
       <End Role="Paises" EntitySet="Paises" />
       <End Role="Estudios" EntitySet="Estudios" />
     </AssociationSet>
+    <EntitySet Name="Perfiles" EntityType="StreamingUnicahModel.Perfiles" />
+    <EntitySet Name="Usuarios" EntityType="StreamingUnicahModel.Usuarios" />
+    <AssociationSet Name="FK_Usuarios_Perfiles" Association="StreamingUnicahModel.FK_Usuarios_Perfiles">
+      <End Role="Perfiles" EntitySet="Perfiles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <EntitySet Name="ModuloPrincipal" EntityType="StreamingUnicahModel.ModuloPrincipal" />
+    <EntitySet Name="PerfilModulo" EntityType="StreamingUnicahModel.PerfilModulo" />
+    <AssociationSet Name="FK_PerfilModulo_Perfiles" Association="StreamingUnicahModel.FK_PerfilModulo_Perfiles">
+      <End Role="Perfiles" EntitySet="Perfiles" />
+      <End Role="PerfilModulo" EntitySet="PerfilModulo" />
+    </AssociationSet>
+    <EntitySet Name="Modulos" EntityType="StreamingUnicahModel.Modulos" />
+    <AssociationSet Name="FK_Modulos_ModuloPrincipal" Association="StreamingUnicahModel.FK_Modulos_ModuloPrincipal">
+      <End Role="ModuloPrincipal" EntitySet="ModuloPrincipal" />
+      <End Role="Modulos" EntitySet="Modulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerfilModulo_Modulos" Association="StreamingUnicahModel.FK_PerfilModulo_Modulos">
+      <End Role="Modulos" EntitySet="Modulos" />
+      <End Role="PerfilModulo" EntitySet="PerfilModulo" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Perfiles">
+    <Key>
+      <PropertyRef Name="IdPerfil" />
+    </Key>
+    <Property Name="IdPerfil" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescripcionPerfil" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="EstadoPerfil" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="StreamingUnicahModel.FK_Usuarios_Perfiles" FromRole="Perfiles" ToRole="Usuarios" />
+    <NavigationProperty Name="PerfilModulo" Relationship="StreamingUnicahModel.FK_PerfilModulo_Perfiles" FromRole="Perfiles" ToRole="PerfilModulo" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NombreCompleto" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="FechaNacimeinto" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CorreoElectronico" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="true" />
+    <Property Name="FKPerfil" Type="Int16" Nullable="false" />
+    <Property Name="Estdo" Type="Boolean" Nullable="false" />
+    <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Perfiles" Relationship="StreamingUnicahModel.FK_Usuarios_Perfiles" FromRole="Usuarios" ToRole="Perfiles" />
+  </EntityType>
+  <Association Name="FK_Usuarios_Perfiles">
+    <End Type="StreamingUnicahModel.Perfiles" Role="Perfiles" Multiplicity="1" />
+    <End Type="StreamingUnicahModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfiles">
+        <PropertyRef Name="IdPerfil" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="FKPerfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ModuloPrincipal">
+    <Key>
+      <PropertyRef Name="IdModuloPrincipal" />
+    </Key>
+    <Property Name="IdModuloPrincipal" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescripcionModuloPrin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EstadoModuloPrin" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Modulos" Relationship="StreamingUnicahModel.FK_Modulos_ModuloPrincipal" FromRole="ModuloPrincipal" ToRole="Modulos" />
+  </EntityType>
+  <EntityType Name="PerfilModulo">
+    <Key>
+      <PropertyRef Name="IdPerfilModulo" />
+    </Key>
+    <Property Name="FKPerfilId" Type="Int16" Nullable="false" />
+    <Property Name="FKModuloId" Type="Int16" Nullable="false" />
+    <Property Name="IdPerfilModulo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Perfiles" Relationship="StreamingUnicahModel.FK_PerfilModulo_Perfiles" FromRole="PerfilModulo" ToRole="Perfiles" />
+    <NavigationProperty Name="Modulos" Relationship="StreamingUnicahModel.FK_PerfilModulo_Modulos" FromRole="PerfilModulo" ToRole="Modulos" />
+  </EntityType>
+  <Association Name="FK_PerfilModulo_Perfiles">
+    <End Type="StreamingUnicahModel.Perfiles" Role="Perfiles" Multiplicity="1" />
+    <End Type="StreamingUnicahModel.PerfilModulo" Role="PerfilModulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Perfiles">
+        <PropertyRef Name="IdPerfil" />
+      </Principal>
+      <Dependent Role="PerfilModulo">
+        <PropertyRef Name="FKPerfilId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Modulos">
+    <Key>
+      <PropertyRef Name="IdModulos" />
+    </Key>
+    <Property Name="IdModulos" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescripcionModulo" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="EstadoModulo" Type="Boolean" Nullable="false" />
+    <Property Name="FKModuloPrincipal" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="ModuloPrincipal" Relationship="StreamingUnicahModel.FK_Modulos_ModuloPrincipal" FromRole="Modulos" ToRole="ModuloPrincipal" />
+    <NavigationProperty Name="PerfilModulo" Relationship="StreamingUnicahModel.FK_PerfilModulo_Modulos" FromRole="Modulos" ToRole="PerfilModulo" />
+  </EntityType>
+  <Association Name="FK_Modulos_ModuloPrincipal">
+    <End Type="StreamingUnicahModel.ModuloPrincipal" Role="ModuloPrincipal" Multiplicity="1" />
+    <End Type="StreamingUnicahModel.Modulos" Role="Modulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ModuloPrincipal">
+        <PropertyRef Name="IdModuloPrincipal" />
+      </Principal>
+      <Dependent Role="Modulos">
+        <PropertyRef Name="FKModuloPrincipal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerfilModulo_Modulos">
+    <End Type="StreamingUnicahModel.Modulos" Role="Modulos" Multiplicity="1" />
+    <End Type="StreamingUnicahModel.PerfilModulo" Role="PerfilModulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modulos">
+        <PropertyRef Name="IdModulos" />
+      </Principal>
+      <Dependent Role="PerfilModulo">
+        <PropertyRef Name="FKModuloId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

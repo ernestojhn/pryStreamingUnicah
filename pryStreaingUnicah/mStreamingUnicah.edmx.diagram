@@ -10,6 +10,15 @@
         <EntityTypeShape EntityType="StreamingUnicahModel.Paises" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="StreamingUnicahModel.TiposPeliculas" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="StreamingUnicahModel.FK_Estudios_Paises" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="StreamingUnicahModel.Perfiles" Width="1.5" PointX="7.625" PointY="1.375" />
+        <EntityTypeShape EntityType="StreamingUnicahModel.Usuarios" Width="1.5" PointX="9.875" PointY="1" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_Usuarios_Perfiles" />
+        <EntityTypeShape EntityType="StreamingUnicahModel.ModuloPrincipal" Width="1.5" PointX="6.625" PointY="4.25" />
+        <EntityTypeShape EntityType="StreamingUnicahModel.PerfilModulo" Width="1.5" PointX="9.875" PointY="4.625" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_PerfilModulo_Perfiles" />
+        <EntityTypeShape EntityType="StreamingUnicahModel.Modulos" Width="1.5" PointX="5.625" PointY="0.5" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_Modulos_ModuloPrincipal" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_PerfilModulo_Modulos" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

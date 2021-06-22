@@ -37,6 +37,7 @@ namespace pryStreaingUnicah
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            
             if (txtDescTipoPelicula.Text.Equals("")) {
                 MessageBox.Show("Por favor ingresar descripcion");
                 return;
@@ -75,7 +76,6 @@ namespace pryStreaingUnicah
             dgTipoPeliculas.DataSource = tTipoPelicula.CopyAnonymusToDataTable();
 
             MessageBox.Show("Informacion guardada!");
-
             
         }
 

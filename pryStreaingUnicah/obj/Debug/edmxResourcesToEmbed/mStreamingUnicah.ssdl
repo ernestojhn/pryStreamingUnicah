@@ -43,6 +43,21 @@
     <Property Name="NombrePais" Type="nvarchar" MaxLength="70" Nullable="false" />
     <Property Name="EstadoPais" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="Peliculas">
+    <Key>
+      <PropertyRef Name="IdPelicula" />
+    </Key>
+    <Property Name="IdPelicula" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombrePelicula" Type="nvarchar" MaxLength="140" Nullable="false" />
+    <Property Name="NombreCorto" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FechaLanzamiento" Type="date" Nullable="false" />
+    <Property Name="FKIdTipoPelicula" Type="tinyint" Nullable="false" />
+    <Property Name="FKIdClasificacion" Type="tinyint" Nullable="false" />
+    <Property Name="FKIdEstudio" Type="int" Nullable="false" />
+    <Property Name="Estreno" Type="bit" Nullable="false" />
+    <Property Name="PrecioVenta" Type="money" Nullable="false" />
+    <Property Name="EstadoPelicula" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="Perfiles">
     <Key>
       <PropertyRef Name="IdPerfil" />
@@ -80,6 +95,25 @@
     <Property Name="Estdo" Type="bit" Nullable="false" />
     <Property Name="Contrasenia" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="VentaDetallePelicula">
+    <Key>
+      <PropertyRef Name="PKVentaDetalle" />
+    </Key>
+    <Property Name="PKVentaDetalle" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKIdVenta" Type="bigint" Nullable="false" />
+    <Property Name="FKIdPelicula" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VentaPelicula">
+    <Key>
+      <PropertyRef Name="IdVenta" />
+    </Key>
+    <Property Name="IdVenta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaVenta" Type="datetime" Nullable="false" />
+    <Property Name="EstatusVenta" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EstadoVenta" Type="bit" Nullable="false" />
+    <Property Name="IdUsuario" Type="bigint" Nullable="false" />
+    <Property Name="Descuento" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+  </EntityType>
   <Association Name="FK_Estudios_Paises">
     <End Role="Paises" Type="Self.Paises" Multiplicity="1" />
     <End Role="Estudios" Type="Self.Estudios" Multiplicity="*" />
@@ -101,6 +135,42 @@
       </Principal>
       <Dependent Role="Modulos">
         <PropertyRef Name="FKModuloPrincipal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Peliculas_Clasificaciones">
+    <End Role="Clasificaciones" Type="Self.Clasificaciones" Multiplicity="1" />
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificaciones">
+        <PropertyRef Name="IdClasificaciones" />
+      </Principal>
+      <Dependent Role="Peliculas">
+        <PropertyRef Name="FKIdClasificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Peliculas_Estudios">
+    <End Role="Estudios" Type="Self.Estudios" Multiplicity="1" />
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estudios">
+        <PropertyRef Name="IdEstudios" />
+      </Principal>
+      <Dependent Role="Peliculas">
+        <PropertyRef Name="FKIdEstudio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Peliculas_TiposPeliculas">
+    <End Role="TiposPeliculas" Type="Self.TiposPeliculas" Multiplicity="1" />
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposPeliculas">
+        <PropertyRef Name="IdTipoPelicula" />
+      </Principal>
+      <Dependent Role="Peliculas">
+        <PropertyRef Name="FKIdTipoPelicula" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -140,16 +210,43 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_VentaDetallePelicula_Peliculas">
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="1" />
+    <End Role="VentaDetallePelicula" Type="Self.VentaDetallePelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peliculas">
+        <PropertyRef Name="IdPelicula" />
+      </Principal>
+      <Dependent Role="VentaDetallePelicula">
+        <PropertyRef Name="FKIdPelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VentaDetallePelicula_VentaPelicula">
+    <End Role="VentaPelicula" Type="Self.VentaPelicula" Multiplicity="1" />
+    <End Role="VentaDetallePelicula" Type="Self.VentaDetallePelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VentaPelicula">
+        <PropertyRef Name="IdVenta" />
+      </Principal>
+      <Dependent Role="VentaDetallePelicula">
+        <PropertyRef Name="FKIdVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="StreamingUnicahModelStoreContainer">
     <EntitySet Name="Clasificaciones" EntityType="Self.Clasificaciones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estudios" EntityType="Self.Estudios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModuloPrincipal" EntityType="Self.ModuloPrincipal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Modulos" EntityType="Self.Modulos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Paises" EntityType="Self.Paises" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Peliculas" EntityType="Self.Peliculas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Perfiles" EntityType="Self.Perfiles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PerfilModulo" EntityType="Self.PerfilModulo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TiposPeliculas" EntityType="Self.TiposPeliculas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VentaDetallePelicula" EntityType="Self.VentaDetallePelicula" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VentaPelicula" EntityType="Self.VentaPelicula" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Estudios_Paises" Association="Self.FK_Estudios_Paises">
       <End Role="Paises" EntitySet="Paises" />
       <End Role="Estudios" EntitySet="Estudios" />
@@ -157,6 +254,18 @@
     <AssociationSet Name="FK_Modulos_ModuloPrincipal" Association="Self.FK_Modulos_ModuloPrincipal">
       <End Role="ModuloPrincipal" EntitySet="ModuloPrincipal" />
       <End Role="Modulos" EntitySet="Modulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Peliculas_Clasificaciones" Association="Self.FK_Peliculas_Clasificaciones">
+      <End Role="Clasificaciones" EntitySet="Clasificaciones" />
+      <End Role="Peliculas" EntitySet="Peliculas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Peliculas_Estudios" Association="Self.FK_Peliculas_Estudios">
+      <End Role="Estudios" EntitySet="Estudios" />
+      <End Role="Peliculas" EntitySet="Peliculas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Peliculas_TiposPeliculas" Association="Self.FK_Peliculas_TiposPeliculas">
+      <End Role="TiposPeliculas" EntitySet="TiposPeliculas" />
+      <End Role="Peliculas" EntitySet="Peliculas" />
     </AssociationSet>
     <AssociationSet Name="FK_PerfilModulo_Modulos" Association="Self.FK_PerfilModulo_Modulos">
       <End Role="Modulos" EntitySet="Modulos" />
@@ -169,6 +278,14 @@
     <AssociationSet Name="FK_Usuarios_Perfiles" Association="Self.FK_Usuarios_Perfiles">
       <End Role="Perfiles" EntitySet="Perfiles" />
       <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VentaDetallePelicula_Peliculas" Association="Self.FK_VentaDetallePelicula_Peliculas">
+      <End Role="Peliculas" EntitySet="Peliculas" />
+      <End Role="VentaDetallePelicula" EntitySet="VentaDetallePelicula" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VentaDetallePelicula_VentaPelicula" Association="Self.FK_VentaDetallePelicula_VentaPelicula">
+      <End Role="VentaPelicula" EntitySet="VentaPelicula" />
+      <End Role="VentaDetallePelicula" EntitySet="VentaDetallePelicula" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

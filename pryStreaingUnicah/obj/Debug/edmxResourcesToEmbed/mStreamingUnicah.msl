@@ -90,5 +90,42 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Peliculas">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.Peliculas">
+        <MappingFragment StoreEntitySet="Peliculas">
+          <ScalarProperty Name="EstadoPelicula" ColumnName="EstadoPelicula" />
+          <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+          <ScalarProperty Name="Estreno" ColumnName="Estreno" />
+          <ScalarProperty Name="FKIdEstudio" ColumnName="FKIdEstudio" />
+          <ScalarProperty Name="FKIdClasificacion" ColumnName="FKIdClasificacion" />
+          <ScalarProperty Name="FKIdTipoPelicula" ColumnName="FKIdTipoPelicula" />
+          <ScalarProperty Name="FechaLanzamiento" ColumnName="FechaLanzamiento" />
+          <ScalarProperty Name="NombreCorto" ColumnName="NombreCorto" />
+          <ScalarProperty Name="NombrePelicula" ColumnName="NombrePelicula" />
+          <ScalarProperty Name="IdPelicula" ColumnName="IdPelicula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VentaDetallePelicula">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.VentaDetallePelicula">
+        <MappingFragment StoreEntitySet="VentaDetallePelicula">
+          <ScalarProperty Name="FKIdPelicula" ColumnName="FKIdPelicula" />
+          <ScalarProperty Name="FKIdVenta" ColumnName="FKIdVenta" />
+          <ScalarProperty Name="PKVentaDetalle" ColumnName="PKVentaDetalle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VentaPelicula">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.VentaPelicula">
+        <MappingFragment StoreEntitySet="VentaPelicula">
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="EstadoVenta" ColumnName="EstadoVenta" />
+          <ScalarProperty Name="EstatusVenta" ColumnName="EstatusVenta" />
+          <ScalarProperty Name="FechaVenta" ColumnName="FechaVenta" />
+          <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

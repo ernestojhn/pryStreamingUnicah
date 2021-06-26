@@ -19,6 +19,14 @@
         <EntityTypeShape EntityType="StreamingUnicahModel.Modulos" Width="1.5" PointX="5.625" PointY="0.5" />
         <AssociationConnector Association="StreamingUnicahModel.FK_Modulos_ModuloPrincipal" />
         <AssociationConnector Association="StreamingUnicahModel.FK_PerfilModulo_Modulos" />
+        <EntityTypeShape EntityType="StreamingUnicahModel.Peliculas" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="StreamingUnicahModel.VentaDetallePelicula" Width="1.5" PointX="7.5" PointY="7.75" />
+        <EntityTypeShape EntityType="StreamingUnicahModel.VentaPelicula" Width="1.5" PointX="5.25" PointY="11.5" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_Peliculas_Clasificaciones" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_Peliculas_Estudios" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_Peliculas_TiposPeliculas" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_VentaDetallePelicula_Peliculas" />
+        <AssociationConnector Association="StreamingUnicahModel.FK_VentaDetallePelicula_VentaPelicula" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

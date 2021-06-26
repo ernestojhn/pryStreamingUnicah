@@ -34,5 +34,8 @@ namespace pryStreaingUnicah
         public DbSet<ModuloPrincipal> ModuloPrincipal { get; set; }
         public DbSet<PerfilModulo> PerfilModulo { get; set; }
         public DbSet<Modulos> Modulos { get; set; }
+        public DbSet<Peliculas> Peliculas { get; set; }
+        public DbSet<VentaDetallePelicula> VentaDetallePelicula { get; set; }
+        public DbSet<VentaPelicula> VentaPelicula { get; set; }
     }
 }

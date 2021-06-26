@@ -14,8 +14,15 @@ namespace pryStreaingUnicah
     
     public partial class Clasificaciones
     {
+        public Clasificaciones()
+        {
+            this.Peliculas = new HashSet<Peliculas>();
+        }
+    
         public byte IdClasificaciones { get; set; }
         public string DescripcionClasficacion { get; set; }
         public bool EstadoClasificacion { get; set; }
+    
+        public virtual ICollection<Peliculas> Peliculas { get; set; }
     }
 }

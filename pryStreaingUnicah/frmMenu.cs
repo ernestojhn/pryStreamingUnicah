@@ -97,7 +97,10 @@ namespace pryStreaingUnicah
 
             }
             this.Controls.Add(mnStrip);
-            
+            //var tbusqueda = entity.TiposPeliculas.Where(x => x.DescripcionTipoPelicula.Contains("dr"));
+            //LIKE dr%
+            //LIKE %dr
+
         }
 
         public void ChildClick(object sender, EventArgs e) {

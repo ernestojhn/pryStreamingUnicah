@@ -14,6 +14,11 @@ namespace pryStreaingUnicah
     
     public partial class Estudios
     {
+        public Estudios()
+        {
+            this.Peliculas = new HashSet<Peliculas>();
+        }
+    
         public int IdEstudios { get; set; }
         public string NombreEstudio { get; set; }
         public System.DateTime FechaFundacion { get; set; }
@@ -21,5 +26,6 @@ namespace pryStreaingUnicah
         public bool EstadoEstudio { get; set; }
     
         public virtual Paises Paises { get; set; }
+        public virtual ICollection<Peliculas> Peliculas { get; set; }
     }
 }

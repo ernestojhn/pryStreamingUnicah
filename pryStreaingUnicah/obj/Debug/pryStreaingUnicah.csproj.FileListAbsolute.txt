@@ -16,3 +16,5 @@ C:\Users\Administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\p
 C:\Users\Administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.csprojResolveAssemblyReference.cache
 C:\Users\Administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.frmVentaPelicula.resources
 C:\Users\Administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.frmPerfilModulo.resources
+C:\Users\Administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.frmTopVentas.resources
+C:\Users\Administrador\documents\visual studio 2015\Projects\pryStreaingUnicah\pryStreaingUnicah\obj\Debug\pryStreaingUnicah.frmPeliculas.resources

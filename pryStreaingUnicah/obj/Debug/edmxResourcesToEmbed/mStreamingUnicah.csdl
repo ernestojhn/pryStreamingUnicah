@@ -104,6 +104,23 @@
       <End Role="VentaPelicula" EntitySet="VentaPelicula" />
       <End Role="VentaDetallePelicula" EntitySet="VentaDetallePelicula" />
     </AssociationSet>
+    <EntitySet Name="DevolucionDetalle" EntityType="StreamingUnicahModel.DevolucionDetalle" />
+    <EntitySet Name="DevolucionesPeliculas" EntityType="StreamingUnicahModel.DevolucionesPeliculas" />
+    <AssociationSet Name="FK_DevolucionDetalle_Peliculas" Association="StreamingUnicahModel.FK_DevolucionDetalle_Peliculas">
+      <End Role="Peliculas" EntitySet="Peliculas" />
+      <End Role="DevolucionDetalle" EntitySet="DevolucionDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DevolucionesPeliculas_VentaPelicula" Association="StreamingUnicahModel.FK_DevolucionesPeliculas_VentaPelicula">
+      <End Role="VentaPelicula" EntitySet="VentaPelicula" />
+      <End Role="DevolucionesPeliculas" EntitySet="DevolucionesPeliculas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VentaPelicula_Usuarios" Association="StreamingUnicahModel.FK_VentaPelicula_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="VentaPelicula" EntitySet="VentaPelicula" />
+    </AssociationSet>
+    <EntitySet Name="TO10CantidadVendida" EntityType="StreamingUnicahModel.TO10CantidadVendida" />
+    <EntitySet Name="TOP10VentaPeliculas" EntityType="StreamingUnicahModel.TOP10VentaPeliculas" />
+    <EntitySet Name="TotalTipoPeliculas" EntityType="StreamingUnicahModel.TotalTipoPeliculas" />
   </EntityContainer>
   <EntityType Name="Perfiles">
     <Key>
@@ -128,6 +145,7 @@
     <Property Name="Estdo" Type="Boolean" Nullable="false" />
     <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Perfiles" Relationship="StreamingUnicahModel.FK_Usuarios_Perfiles" FromRole="Usuarios" ToRole="Perfiles" />
+    <NavigationProperty Name="VentaPelicula" Relationship="StreamingUnicahModel.FK_VentaPelicula_Usuarios" FromRole="Usuarios" ToRole="VentaPelicula" />
   </EntityType>
   <Association Name="FK_Usuarios_Perfiles">
     <End Type="StreamingUnicahModel.Perfiles" Role="Perfiles" Multiplicity="1" />
@@ -225,6 +243,9 @@
     <NavigationProperty Name="Estudios" Relationship="StreamingUnicahModel.FK_Peliculas_Estudios" FromRole="Peliculas" ToRole="Estudios" />
     <NavigationProperty Name="TiposPeliculas" Relationship="StreamingUnicahModel.FK_Peliculas_TiposPeliculas" FromRole="Peliculas" ToRole="TiposPeliculas" />
     <NavigationProperty Name="VentaDetallePelicula" Relationship="StreamingUnicahModel.FK_VentaDetallePelicula_Peliculas" FromRole="Peliculas" ToRole="VentaDetallePelicula" />
+    <Property Name="Exento" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DevolucionDetalle" Relationship="StreamingUnicahModel.FK_DevolucionDetalle_Peliculas" FromRole="Peliculas" ToRole="DevolucionDetalle" />
+    <Property Name="DireccionImagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="VentaDetallePelicula">
     <Key>
@@ -247,6 +268,10 @@
     <Property Name="IdUsuario" Type="Int64" Nullable="false" />
     <Property Name="Descuento" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
     <NavigationProperty Name="VentaDetallePelicula" Relationship="StreamingUnicahModel.FK_VentaDetallePelicula_VentaPelicula" FromRole="VentaPelicula" ToRole="VentaDetallePelicula" />
+    <Property Name="ISV" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="TotalVenta" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="DevolucionesPeliculas" Relationship="StreamingUnicahModel.FK_DevolucionesPeliculas_VentaPelicula" FromRole="VentaPelicula" ToRole="DevolucionesPeliculas" />
+    <NavigationProperty Name="Usuarios" Relationship="StreamingUnicahModel.FK_VentaPelicula_Usuarios" FromRole="VentaPelicula" ToRole="Usuarios" />
   </EntityType>
   <Association Name="FK_Peliculas_Clasificaciones">
     <End Type="StreamingUnicahModel.Clasificaciones" Role="Clasificaciones" Multiplicity="1" />
@@ -308,4 +333,80 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="DevolucionDetalle">
+    <Key>
+      <PropertyRef Name="IdDevolucionDetalle" />
+    </Key>
+    <Property Name="IdDevolucionDetalle" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKIdDevolucion" Type="Int64" Nullable="false" />
+    <Property Name="FKIdPelicula" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Peliculas" Relationship="StreamingUnicahModel.FK_DevolucionDetalle_Peliculas" FromRole="DevolucionDetalle" ToRole="Peliculas" />
+  </EntityType>
+  <EntityType Name="DevolucionesPeliculas">
+    <Key>
+      <PropertyRef Name="IdDevolucion" />
+    </Key>
+    <Property Name="IdDevolucion" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaDevolucion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FKIdVenta" Type="Int64" Nullable="false" />
+    <Property Name="EstadoDevolucion" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="VentaPelicula" Relationship="StreamingUnicahModel.FK_DevolucionesPeliculas_VentaPelicula" FromRole="DevolucionesPeliculas" ToRole="VentaPelicula" />
+  </EntityType>
+  <Association Name="FK_DevolucionDetalle_Peliculas">
+    <End Type="StreamingUnicahModel.Peliculas" Role="Peliculas" Multiplicity="1" />
+    <End Type="StreamingUnicahModel.DevolucionDetalle" Role="DevolucionDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peliculas">
+        <PropertyRef Name="IdPelicula" />
+      </Principal>
+      <Dependent Role="DevolucionDetalle">
+        <PropertyRef Name="FKIdPelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DevolucionesPeliculas_VentaPelicula">
+    <End Type="StreamingUnicahModel.VentaPelicula" Role="VentaPelicula" Multiplicity="1" />
+    <End Type="StreamingUnicahModel.DevolucionesPeliculas" Role="DevolucionesPeliculas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VentaPelicula">
+        <PropertyRef Name="IdVenta" />
+      </Principal>
+      <Dependent Role="DevolucionesPeliculas">
+        <PropertyRef Name="FKIdVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VentaPelicula_Usuarios">
+    <End Type="StreamingUnicahModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+    <End Type="StreamingUnicahModel.VentaPelicula" Role="VentaPelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="VentaPelicula">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TO10CantidadVendida">
+    <Key>
+      <PropertyRef Name="NombrePelicula" />
+    </Key>
+    <Property Name="NombrePelicula" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="true" />
+    <Property Name="CantidadVendida" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TOP10VentaPeliculas">
+    <Key>
+      <PropertyRef Name="NombrePelicula" />
+    </Key>
+    <Property Name="NombrePelicula" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="true" />
+    <Property Name="TotalPelicula" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="TotalTipoPeliculas">
+    <Key>
+      <PropertyRef Name="DescripcionTipoPelicula" />
+    </Key>
+    <Property Name="DescripcionTipoPelicula" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="TotalTipo" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
 </Schema>

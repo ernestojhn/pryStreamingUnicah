@@ -37,5 +37,10 @@ namespace pryStreaingUnicah
         public DbSet<Peliculas> Peliculas { get; set; }
         public DbSet<VentaDetallePelicula> VentaDetallePelicula { get; set; }
         public DbSet<VentaPelicula> VentaPelicula { get; set; }
+        public DbSet<DevolucionDetalle> DevolucionDetalle { get; set; }
+        public DbSet<DevolucionesPeliculas> DevolucionesPeliculas { get; set; }
+        public DbSet<TO10CantidadVendida> TO10CantidadVendida { get; set; }
+        public DbSet<TOP10VentaPeliculas> TOP10VentaPeliculas { get; set; }
+        public DbSet<TotalTipoPeliculas> TotalTipoPeliculas { get; set; }
     }
 }

@@ -57,8 +57,22 @@ namespace pryStreaingUnicah
                 dtEstrenos =(DataTable) gEstrenos.DataSource;
                 dtEstrenos.Rows.RemoveAt(indice);
                 gEstrenos.DataSource = dtEstrenos;
-               
-                
+
+                decimal subtot = 0;
+                decimal isv = 0;
+                //decimal total = 0;
+
+                foreach (DataGridViewRow dr in gDetalle.Rows) {
+
+                    long fkidPelicula = Convert.ToInt64(dr.Cells[0].Value);
+                    var pel=entity.Peliculas.FirstOrDefault(x => x.IdPelicula == fkidPelicula);
+                    subtot += pel.PrecioVenta;
+                    isv += pel.Exento.Equals("E") ? 0 : pel.PrecioVenta *(Convert.ToDecimal( pel.Exento.Substring(0,2))/100);
+
+                }
+                txtSubTot.Text = subtot.ToString("N2");
+                txtISV.Text = isv.ToString("N2");
+                txtTotal.Text = (subtot + isv).ToString("N2");
 
             }
             else {
@@ -81,6 +95,22 @@ namespace pryStreaingUnicah
                 gEstrenos.DataSource = dtEstrenos;
                 gDetalle.Rows.RemoveAt(indice);
 
+                decimal subtot = 0;
+                decimal isv = 0;
+                //decimal total = 0;
+
+                foreach (DataGridViewRow dr in gDetalle.Rows)
+                {
+
+                    var pel = entity.Peliculas.FirstOrDefault(x => x.IdPelicula == Convert.ToInt64(dr.Cells[0].Value));
+                    subtot += pel.PrecioVenta;
+                    isv += pel.Exento.Equals("E") ? 0 : pel.PrecioVenta * Convert.ToDecimal(pel.Exento);
+
+                }
+                txtSubTot.Text = subtot.ToString("N2");
+                txtISV.Text = isv.ToString("N2");
+                txtTotal.Text = (subtot + isv).ToString("N2");
+
             }
             else
             {
@@ -98,7 +128,9 @@ namespace pryStreaingUnicah
                 tVenta.EstadoVenta = true;
                 tVenta.IdUsuario = 2;
                 tVenta.FechaVenta = DateTime.Now;
-
+                tVenta.ISV = Convert.ToDecimal(txtISV.Text);
+                tVenta.TotalVenta = Convert.ToDecimal(txtTotal.Text);
+                    
                 entity.VentaPelicula.Add(tVenta);
                 entity.SaveChanges();
 
@@ -112,10 +144,16 @@ namespace pryStreaingUnicah
                 }
 
                 MessageBox.Show("Venta exitosa!");
-                for (int x = 0; x < gDetalle.Rows.Count; x++) {
-                    gDetalle.Rows.RemoveAt(x);
+                gDetalle.Rows.Clear();
 
-                }
+                //foreach (DataGridViewRow dr in gDetalle.Rows)
+                //{
+                //    gDetalle.Rows.Remove(dr);
+                //}
+                //for (int x = 0; x < gDetalle.Rows.Count; x++) {
+                //    gDetalle.Rows.RemoveAt(x);
+
+                //}
 
                 var tEstrenos = from p in entity.Peliculas
                                 where p.Estreno == true
@@ -131,6 +169,7 @@ namespace pryStreaingUnicah
                 dtEstrenos = tEstrenos.CopyAnonymusToDataTable();
                 gEstrenos.DataSource = dtEstrenos;
 
+                txtISV.Text = txtSubTot.Text = txtTotal.Text = "0.00";
 
             }
             else {

@@ -93,6 +93,8 @@
     <EntitySetMapping Name="Peliculas">
       <EntityTypeMapping TypeName="StreamingUnicahModel.Peliculas">
         <MappingFragment StoreEntitySet="Peliculas">
+          <ScalarProperty Name="DireccionImagen" ColumnName="DireccionImagen" />
+          <ScalarProperty Name="Exento" ColumnName="Exento" />
           <ScalarProperty Name="EstadoPelicula" ColumnName="EstadoPelicula" />
           <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
           <ScalarProperty Name="Estreno" ColumnName="Estreno" />
@@ -118,12 +120,57 @@
     <EntitySetMapping Name="VentaPelicula">
       <EntityTypeMapping TypeName="StreamingUnicahModel.VentaPelicula">
         <MappingFragment StoreEntitySet="VentaPelicula">
+          <ScalarProperty Name="TotalVenta" ColumnName="TotalVenta" />
+          <ScalarProperty Name="ISV" ColumnName="ISV" />
           <ScalarProperty Name="Descuento" ColumnName="Descuento" />
           <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
           <ScalarProperty Name="EstadoVenta" ColumnName="EstadoVenta" />
           <ScalarProperty Name="EstatusVenta" ColumnName="EstatusVenta" />
           <ScalarProperty Name="FechaVenta" ColumnName="FechaVenta" />
           <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DevolucionDetalle">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.DevolucionDetalle">
+        <MappingFragment StoreEntitySet="DevolucionDetalle">
+          <ScalarProperty Name="FKIdPelicula" ColumnName="FKIdPelicula" />
+          <ScalarProperty Name="FKIdDevolucion" ColumnName="FKIdDevolucion" />
+          <ScalarProperty Name="IdDevolucionDetalle" ColumnName="IdDevolucionDetalle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DevolucionesPeliculas">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.DevolucionesPeliculas">
+        <MappingFragment StoreEntitySet="DevolucionesPeliculas">
+          <ScalarProperty Name="EstadoDevolucion" ColumnName="EstadoDevolucion" />
+          <ScalarProperty Name="FKIdVenta" ColumnName="FKIdVenta" />
+          <ScalarProperty Name="FechaDevolucion" ColumnName="FechaDevolucion" />
+          <ScalarProperty Name="IdDevolucion" ColumnName="IdDevolucion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TO10CantidadVendida">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.TO10CantidadVendida">
+        <MappingFragment StoreEntitySet="TO10CantidadVendida">
+          <ScalarProperty Name="CantidadVendida" ColumnName="CantidadVendida" />
+          <ScalarProperty Name="NombrePelicula" ColumnName="NombrePelicula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TOP10VentaPeliculas">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.TOP10VentaPeliculas">
+        <MappingFragment StoreEntitySet="TOP10VentaPeliculas">
+          <ScalarProperty Name="TotalPelicula" ColumnName="TotalPelicula" />
+          <ScalarProperty Name="NombrePelicula" ColumnName="NombrePelicula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TotalTipoPeliculas">
+      <EntityTypeMapping TypeName="StreamingUnicahModel.TotalTipoPeliculas">
+        <MappingFragment StoreEntitySet="TotalTipoPeliculas">
+          <ScalarProperty Name="TotalTipo" ColumnName="TotalTipo" />
+          <ScalarProperty Name="DescripcionTipoPelicula" ColumnName="DescripcionTipoPelicula" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

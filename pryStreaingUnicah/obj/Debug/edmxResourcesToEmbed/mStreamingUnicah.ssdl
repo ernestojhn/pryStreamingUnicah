@@ -8,6 +8,23 @@
     <Property Name="DescripcionClasficacion" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="EstadoClasificacion" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="DevolucionDetalle">
+    <Key>
+      <PropertyRef Name="IdDevolucionDetalle" />
+    </Key>
+    <Property Name="IdDevolucionDetalle" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKIdDevolucion" Type="bigint" Nullable="false" />
+    <Property Name="FKIdPelicula" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DevolucionesPeliculas">
+    <Key>
+      <PropertyRef Name="IdDevolucion" />
+    </Key>
+    <Property Name="IdDevolucion" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaDevolucion" Type="datetime" Nullable="false" />
+    <Property Name="FKIdVenta" Type="bigint" Nullable="false" />
+    <Property Name="EstadoDevolucion" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="Estudios">
     <Key>
       <PropertyRef Name="IdEstudios" />
@@ -57,6 +74,8 @@
     <Property Name="Estreno" Type="bit" Nullable="false" />
     <Property Name="PrecioVenta" Type="money" Nullable="false" />
     <Property Name="EstadoPelicula" Type="bit" Nullable="false" />
+    <Property Name="Exento" Type="nvarchar" MaxLength="3" />
+    <Property Name="DireccionImagen" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Perfiles">
     <Key>
@@ -113,7 +132,60 @@
     <Property Name="EstadoVenta" Type="bit" Nullable="false" />
     <Property Name="IdUsuario" Type="bigint" Nullable="false" />
     <Property Name="Descuento" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+    <Property Name="ISV" Type="money" />
+    <Property Name="TotalVenta" Type="money" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'StreamingUnicah.dbo.TO10CantidadVendida' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TO10CantidadVendida">
+    <Key>
+      <PropertyRef Name="NombrePelicula" />
+    </Key>
+    <Property Name="NombrePelicula" Type="nvarchar" MaxLength="140" Nullable="false" />
+    <Property Name="CantidadVendida" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'StreamingUnicah.dbo.TOP10VentaPeliculas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TOP10VentaPeliculas">
+    <Key>
+      <PropertyRef Name="NombrePelicula" />
+    </Key>
+    <Property Name="NombrePelicula" Type="nvarchar" MaxLength="140" Nullable="false" />
+    <Property Name="TotalPelicula" Type="money" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'StreamingUnicah.dbo.TotalTipoPeliculas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TotalTipoPeliculas">
+    <Key>
+      <PropertyRef Name="DescripcionTipoPelicula" />
+    </Key>
+    <Property Name="DescripcionTipoPelicula" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="TotalTipo" Type="money" />
+  </EntityType>
+  <Association Name="FK_DevolucionDetalle_Peliculas">
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="1" />
+    <End Role="DevolucionDetalle" Type="Self.DevolucionDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peliculas">
+        <PropertyRef Name="IdPelicula" />
+      </Principal>
+      <Dependent Role="DevolucionDetalle">
+        <PropertyRef Name="FKIdPelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DevolucionesPeliculas_VentaPelicula">
+    <End Role="VentaPelicula" Type="Self.VentaPelicula" Multiplicity="1" />
+    <End Role="DevolucionesPeliculas" Type="Self.DevolucionesPeliculas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VentaPelicula">
+        <PropertyRef Name="IdVenta" />
+      </Principal>
+      <Dependent Role="DevolucionesPeliculas">
+        <PropertyRef Name="FKIdVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Estudios_Paises">
     <End Role="Paises" Type="Self.Paises" Multiplicity="1" />
     <End Role="Estudios" Type="Self.Estudios" Multiplicity="*" />
@@ -234,8 +306,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_VentaPelicula_Usuarios">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="VentaPelicula" Type="Self.VentaPelicula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="VentaPelicula">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="StreamingUnicahModelStoreContainer">
     <EntitySet Name="Clasificaciones" EntityType="Self.Clasificaciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DevolucionDetalle" EntityType="Self.DevolucionDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DevolucionesPeliculas" EntityType="Self.DevolucionesPeliculas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estudios" EntityType="Self.Estudios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModuloPrincipal" EntityType="Self.ModuloPrincipal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Modulos" EntityType="Self.Modulos" Schema="dbo" store:Type="Tables" />
@@ -247,6 +333,32 @@
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VentaDetallePelicula" EntityType="Self.VentaDetallePelicula" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VentaPelicula" EntityType="Self.VentaPelicula" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TO10CantidadVendida" EntityType="Self.TO10CantidadVendida" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[TO10CantidadVendida].[NombrePelicula] AS [NombrePelicula], 
+[TO10CantidadVendida].[CantidadVendida] AS [CantidadVendida]
+FROM [dbo].[TO10CantidadVendida] AS [TO10CantidadVendida]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TOP10VentaPeliculas" EntityType="Self.TOP10VentaPeliculas" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[TOP10VentaPeliculas].[NombrePelicula] AS [NombrePelicula], 
+[TOP10VentaPeliculas].[TotalPelicula] AS [TotalPelicula]
+FROM [dbo].[TOP10VentaPeliculas] AS [TOP10VentaPeliculas]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TotalTipoPeliculas" EntityType="Self.TotalTipoPeliculas" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[TotalTipoPeliculas].[DescripcionTipoPelicula] AS [DescripcionTipoPelicula], 
+[TotalTipoPeliculas].[TotalTipo] AS [TotalTipo]
+FROM [dbo].[TotalTipoPeliculas] AS [TotalTipoPeliculas]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_DevolucionDetalle_Peliculas" Association="Self.FK_DevolucionDetalle_Peliculas">
+      <End Role="Peliculas" EntitySet="Peliculas" />
+      <End Role="DevolucionDetalle" EntitySet="DevolucionDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DevolucionesPeliculas_VentaPelicula" Association="Self.FK_DevolucionesPeliculas_VentaPelicula">
+      <End Role="VentaPelicula" EntitySet="VentaPelicula" />
+      <End Role="DevolucionesPeliculas" EntitySet="DevolucionesPeliculas" />
+    </AssociationSet>
     <AssociationSet Name="FK_Estudios_Paises" Association="Self.FK_Estudios_Paises">
       <End Role="Paises" EntitySet="Paises" />
       <End Role="Estudios" EntitySet="Estudios" />
@@ -286,6 +398,10 @@
     <AssociationSet Name="FK_VentaDetallePelicula_VentaPelicula" Association="Self.FK_VentaDetallePelicula_VentaPelicula">
       <End Role="VentaPelicula" EntitySet="VentaPelicula" />
       <End Role="VentaDetallePelicula" EntitySet="VentaDetallePelicula" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VentaPelicula_Usuarios" Association="Self.FK_VentaPelicula_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="VentaPelicula" EntitySet="VentaPelicula" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

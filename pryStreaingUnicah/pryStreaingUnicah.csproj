@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{446EE873-D5C7-40A8-BAC7-D4F7DC8E763D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>pryStreaingUnicah</RootNamespace>
+    <AssemblyName>pryStreaingUnicah</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CalidadCamisas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalidadCamisas.Designer.cs">
+      <DependentUpon>CalidadCamisas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clasificaciones.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionDetalle.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionesPeliculas.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Estudios.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMenu.Designer.cs">
+      <DependentUpon>frmMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPeliculas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPeliculas.Designer.cs">
+      <DependentUpon>frmPeliculas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPerfilModulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPerfilModulo.Designer.cs">
+      <DependentUpon>frmPerfilModulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTopVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTopVentas.Designer.cs">
+      <DependentUpon>frmTopVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmVentaPelicula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmVentaPelicula.Designer.cs">
+      <DependentUpon>frmVentaPelicula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModuloPrincipal.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modulos.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Peliculas.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PerfilModulo.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Seguridad\frmUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Seguridad\frmUsuarios.Designer.cs">
+      <DependentUpon>frmUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LINQTODATATABLE.cs" />
+    <Compile Include="MantenimientoEstudios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MantenimientoEstudios.Designer.cs">
+      <DependentUpon>MantenimientoEstudios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mStreamingUnicah.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mStreamingUnicah.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mStreamingUnicah.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mStreamingUnicah.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mStreamingUnicah.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Paises.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Perfiles.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Seguridad\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TiposPeliculas.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TO10CantidadVendida.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TOP10VentaPeliculas.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TotalTipoPeliculas.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VentaDetallePelicula.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VentaPelicula.cs">
+      <DependentUpon>mStreamingUnicah.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CalidadCamisas.resx">
+      <DependentUpon>CalidadCamisas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMenu.resx">
+      <DependentUpon>frmMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPeliculas.resx">
+      <DependentUpon>frmPeliculas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPerfilModulo.resx">
+      <DependentUpon>frmPerfilModulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTopVentas.resx">
+      <DependentUpon>frmTopVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmVentaPelicula.resx">
+      <DependentUpon>frmVentaPelicula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Seguridad\frmUsuarios.resx">
+      <DependentUpon>frmUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MantenimientoEstudios.resx">
+      <DependentUpon>MantenimientoEstudios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Seguridad\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="mStreamingUnicah.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>mStreamingUnicah.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="mStreamingUnicah.edmx.diagram">
+      <DependentUpon>mStreamingUnicah.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mStreamingUnicah.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>mStreamingUnicah.edmx</DependentUpon>
+      <LastGenOutput>mStreamingUnicah.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="mStreamingUnicah.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>mStreamingUnicah.edmx</DependentUpon>
+      <LastGenOutput>mStreamingUnicah.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\unicah.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

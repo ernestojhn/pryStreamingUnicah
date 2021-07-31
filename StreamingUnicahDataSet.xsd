@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="StreamingUnicahDataSet" targetNamespace="http://tempuri.org/StreamingUnicahDataSet.xsd" xmlns:mstns="http://tempuri.org/StreamingUnicahDataSet.xsd" xmlns="http://tempuri.org/StreamingUnicahDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="StreamingUnicahConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="StreamingUnicahConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.pryStreaingUnicah.Properties.Settings.GlobalReference.Default.StreamingUnicahConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TotalCantidadVentaTableAdapter" GeneratorDataComponentClassName="TotalCantidadVentaTableAdapter" Name="TotalCantidadVenta" UserDataComponentName="TotalCantidadVentaTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StreamingUnicahConnectionString (Settings)" DbObjectName="StreamingUnicah.dbo.TotalCantidadVenta" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Total, Cantidad, Mes FROM dbo.TotalCantidadVenta</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+              <Mapping SourceColumn="Cantidad" DataSetColumn="Cantidad" />
+              <Mapping SourceColumn="Mes" DataSetColumn="Mes" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TotalTipoPeliculasTableAdapter" GeneratorDataComponentClassName="TotalTipoPeliculasTableAdapter" Name="TotalTipoPeliculas" UserDataComponentName="TotalTipoPeliculasTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StreamingUnicahConnectionString (Settings)" DbObjectName="StreamingUnicah.dbo.TotalTipoPeliculas" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT DescripcionTipoPelicula, TotalTipo FROM dbo.TotalTipoPeliculas</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="DescripcionTipoPelicula" DataSetColumn="DescripcionTipoPelicula" />
+              <Mapping SourceColumn="TotalTipo" DataSetColumn="TotalTipo" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="TotalUsuariosTableAdapter" GeneratorDataComponentClassName="TotalUsuariosTableAdapter" Name="TotalUsuarios" UserDataComponentName="TotalUsuariosTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StreamingUnicahConnectionString (Settings)" DbObjectName="StreamingUnicah.dbo.Usuarios" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Usuarios.Usuario, SUM(VentaPelicula.TotalVenta) AS Total
+FROM            VentaPelicula INNER JOIN
+                         Usuarios ON VentaPelicula.IdUsuario = Usuarios.IdUsuario
+WHERE        (VentaPelicula.FechaVenta BETWEEN @Param1 AND @Param2)
+GROUP BY Usuarios.Usuario</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Param1" ColumnName="FechaVenta" DataSourceName="StreamingUnicah.dbo.VentaPelicula" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@Param1" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="FechaVenta" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Param2" ColumnName="FechaVenta" DataSourceName="StreamingUnicah.dbo.VentaPelicula" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@Param2" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="FechaVenta" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Usuario" DataSetColumn="Usuario" />
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="StreamingUnicahDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="StreamingUnicahDataSet" msprop:Generator_UserDSName="StreamingUnicahDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="TotalCantidadVenta" msprop:Generator_TableClassName="TotalCantidadVentaDataTable" msprop:Generator_TableVarName="tableTotalCantidadVenta" msprop:Generator_RowChangedName="TotalCantidadVentaRowChanged" msprop:Generator_TablePropName="TotalCantidadVenta" msprop:Generator_RowDeletingName="TotalCantidadVentaRowDeleting" msprop:Generator_RowChangingName="TotalCantidadVentaRowChanging" msprop:Generator_RowEvHandlerName="TotalCantidadVentaRowChangeEventHandler" msprop:Generator_RowDeletedName="TotalCantidadVentaRowDeleted" msprop:Generator_RowClassName="TotalCantidadVentaRow" msprop:Generator_UserTableName="TotalCantidadVenta" msprop:Generator_RowEvArgName="TotalCantidadVentaRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Cantidad" msprop:Generator_ColumnVarNameInTable="columnCantidad" msprop:Generator_ColumnPropNameInRow="Cantidad" msprop:Generator_ColumnPropNameInTable="CantidadColumn" msprop:Generator_UserColumnName="Cantidad" type="xs:int" minOccurs="0" />
+              <xs:element name="Mes" msprop:Generator_ColumnVarNameInTable="columnMes" msprop:Generator_ColumnPropNameInRow="Mes" msprop:Generator_ColumnPropNameInTable="MesColumn" msprop:Generator_UserColumnName="Mes" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TotalTipoPeliculas" msprop:Generator_TableClassName="TotalTipoPeliculasDataTable" msprop:Generator_TableVarName="tableTotalTipoPeliculas" msprop:Generator_RowChangedName="TotalTipoPeliculasRowChanged" msprop:Generator_TablePropName="TotalTipoPeliculas" msprop:Generator_RowDeletingName="TotalTipoPeliculasRowDeleting" msprop:Generator_RowChangingName="TotalTipoPeliculasRowChanging" msprop:Generator_RowEvHandlerName="TotalTipoPeliculasRowChangeEventHandler" msprop:Generator_RowDeletedName="TotalTipoPeliculasRowDeleted" msprop:Generator_RowClassName="TotalTipoPeliculasRow" msprop:Generator_UserTableName="TotalTipoPeliculas" msprop:Generator_RowEvArgName="TotalTipoPeliculasRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DescripcionTipoPelicula" msprop:Generator_ColumnVarNameInTable="columnDescripcionTipoPelicula" msprop:Generator_ColumnPropNameInRow="DescripcionTipoPelicula" msprop:Generator_ColumnPropNameInTable="DescripcionTipoPeliculaColumn" msprop:Generator_UserColumnName="DescripcionTipoPelicula">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalTipo" msprop:Generator_ColumnVarNameInTable="columnTotalTipo" msprop:Generator_ColumnPropNameInRow="TotalTipo" msprop:Generator_ColumnPropNameInTable="TotalTipoColumn" msprop:Generator_UserColumnName="TotalTipo" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TotalUsuarios" msprop:Generator_TableClassName="TotalUsuariosDataTable" msprop:Generator_TableVarName="tableTotalUsuarios" msprop:Generator_TablePropName="TotalUsuarios" msprop:Generator_RowDeletingName="TotalUsuariosRowDeleting" msprop:Generator_RowChangingName="TotalUsuariosRowChanging" msprop:Generator_RowEvHandlerName="TotalUsuariosRowChangeEventHandler" msprop:Generator_RowDeletedName="TotalUsuariosRowDeleted" msprop:Generator_UserTableName="TotalUsuarios" msprop:Generator_RowChangedName="TotalUsuariosRowChanged" msprop:Generator_RowEvArgName="TotalUsuariosRowChangeEvent" msprop:Generator_RowClassName="TotalUsuariosRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Usuario" msprop:Generator_ColumnVarNameInTable="columnUsuario" msprop:Generator_ColumnPropNameInRow="Usuario" msprop:Generator_ColumnPropNameInTable="UsuarioColumn" msprop:Generator_UserColumnName="Usuario">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
